@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/ubuntu/paper_check/main.py", line 3, in <module>
+    from check_paper1 import check_paper
+  File "/home/ubuntu/paper_check/check_paper1.py", line 1, in <module>
+    from annotate import add_comments
+  File "/home/ubuntu/paper_check/annotate.py", line 1, in <module>
+    from spire.doc import *
+ModuleNotFoundError: No module named 'spire'

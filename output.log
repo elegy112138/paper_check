@@ -1,0 +1,75 @@
+nohup: ignoring input
+ * Serving Flask app 'main'
+ * Debug mode: on
+[31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://10.0.20.3:5000
+[33mPress CTRL+C to quit[0m
+ * Restarting with watchdog (inotify)
+ * Debugger is active!
+ * Debugger PIN: 110-064-602
+218.89.242.226 - - [09/Apr/2024 14:43:05] "[33mGET /upload?id=111 HTTP/1.1[0m" 404 -
+218.89.242.226 - - [09/Apr/2024 14:43:09] "GET /fileList?page=1&pagesize=10 HTTP/1.1" 200 -
+218.89.242.226 - - [09/Apr/2024 14:43:15] "GET /fileList?page=1&pagesize=10 HTTP/1.1" 200 -
+218.89.242.226 - - [09/Apr/2024 15:00:21] "[33mGET /upload?id=111 HTTP/1.1[0m" 404 -
+169.150.203.18 - - [09/Apr/2024 15:21:23] "[33mGET /upload?id=111 HTTP/1.1[0m" 404 -
+167.94.138.33 - - [09/Apr/2024 15:43:29] code 400, message Bad request version ('À\x14À')
+167.94.138.33 - - [09/Apr/2024 15:43:29] "[35m[1m\x16\x03\x01\x00î\x01\x00\x00ê\x03\x03÷\x83²½¼\x0bC¬Mh¢\x10?)Ì´Uï»åâÇö%DKÌ¹Äõ\x7f\x06 ÊH{P¼r\x97õ\x8eÉ¿Y´7ôøþ$\x00ª;1\x93°··@\x17<h\x13¶\x00&Ì¨Ì©À/À0À+À,À\x13À\x09À\x14À[0m" HTTPStatus.BAD_REQUEST -
+167.94.138.33 - - [09/Apr/2024 15:43:34] "[33mGET / HTTP/1.1[0m" 404 -
+167.94.138.33 - - [09/Apr/2024 15:43:39] "[33mGET / HTTP/1.1[0m" 404 -
+167.94.138.33 - - [09/Apr/2024 15:43:40] code 505, message Invalid HTTP version (2.0)
+167.94.138.33 - - [09/Apr/2024 15:43:40] "[35m[1mPRI * HTTP/2.0[0m" HTTPStatus.HTTP_VERSION_NOT_SUPPORTED -
+185.161.248.141 - - [09/Apr/2024 15:47:20] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie:')
+185.161.248.141 - - [09/Apr/2024 15:47:20] "[35m[1m\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie: mstshash=Administr[0m" HTTPStatus.BAD_REQUEST -
+87.246.7.78 - - [09/Apr/2024 15:49:40] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie:')
+87.246.7.78 - - [09/Apr/2024 15:49:40] "[35m[1m\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie: mstshash=Administr[0m" HTTPStatus.BAD_REQUEST -
+205.210.31.56 - - [09/Apr/2024 16:00:46] "[33mGET / HTTP/1.1[0m" 404 -
+106.55.202.186 - - [09/Apr/2024 16:24:19] code 400, message Bad HTTP/0.9 request type ('\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x03ê\x11¿ïkÒ§h\\ã\x94\x8c·\x8b´â`ºG¡¬p\x11±\x06\x93y\x97±\x15<ç')
+106.55.202.186 - - [09/Apr/2024 16:24:19] "[35m[1m\x16\x03\x01\x02\x00\x01\x00\x01ü\x03\x03ê\x11¿ïkÒ§h\\ã\x94\x8c·\x8b´â`ºG¡¬p\x11±\x06\x93y\x97±\x15<ç èª·>~Á\x8bÍ\x1aPìD@µ²\x95\x8a\x8aiõ¤È4³)¢cx\x9dkÁ\x8d\x00>\x13\x02\x13\x03\x13\x01À,À0\x00\x9fÌ©Ì¨ÌªÀ+À/\x00\x9eÀ$À(\x00kÀ#À'\x00gÀ[0m" HTTPStatus.BAD_REQUEST -
+198.235.24.212 - - [09/Apr/2024 17:38:44] "[33mGET / HTTP/1.0[0m" 404 -
+162.142.125.212 - - [09/Apr/2024 18:50:48] code 400, message Bad request version ('À\x14À')
+162.142.125.212 - - [09/Apr/2024 18:50:48] "[35m[1m\x16\x03\x01\x00î\x01\x00\x00ê\x03\x03)Ý,º,\x01¶v`5¶uÉ/ÂDäÓ\x96JÄÂ\x1a0ú°Ù3ohèÞ \x93·J©¶.Ðõ\x0b¿\x05Ä\x1c\x98tK\x9d±¹\x17®\x82\x9cÀ¿\x0e~Js\x0dc\x86\x00&Ì¨Ì©À/À0À+À,À\x13À\x09À\x14À[0m" HTTPStatus.BAD_REQUEST -
+162.142.125.212 - - [09/Apr/2024 18:50:52] "[33mGET / HTTP/1.1[0m" 404 -
+162.142.125.212 - - [09/Apr/2024 18:50:56] "[33mGET / HTTP/1.1[0m" 404 -
+162.142.125.212 - - [09/Apr/2024 18:50:57] code 505, message Invalid HTTP version (2.0)
+162.142.125.212 - - [09/Apr/2024 18:50:57] "[35m[1mPRI * HTTP/2.0[0m" HTTPStatus.HTTP_VERSION_NOT_SUPPORTED -
+207.90.244.5 - - [09/Apr/2024 18:54:26] "[33mGET / HTTP/1.1[0m" 404 -
+207.90.244.5 - - [09/Apr/2024 18:54:27] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+59.83.208.103 - - [09/Apr/2024 19:25:13] "[33mGET / HTTP/1.1[0m" 404 -
+69.234.213.116 - - [09/Apr/2024 20:34:39] "[33mGET / HTTP/1.1[0m" 404 -
+220.196.160.96 - - [09/Apr/2024 20:44:34] "GET /fileList?page=1&pagesize=10 HTTP/1.1" 200 -
+79.124.49.214 - - [09/Apr/2024 20:55:08] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie:')
+79.124.49.214 - - [09/Apr/2024 20:55:08] "[35m[1m\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie: mstshash=Administr[0m" HTTPStatus.BAD_REQUEST -
+180.101.244.14 - - [09/Apr/2024 21:06:22] "[33mGET /upload?id=111 HTTP/1.1[0m" 404 -
+167.94.146.58 - - [10/Apr/2024 00:19:19] code 400, message Bad request version ('À\x14À')
+167.94.146.58 - - [10/Apr/2024 00:19:19] "[35m[1m\x16\x03\x01\x00î\x01\x00\x00ê\x03\x03wc#mT8\x95\x17ú;Ó2¡\x00¥\x9cìêô\x04Âl%°7µà<bª%¾ ý\x1eJý\x89k\x9f9SàKÄ¶^Ñä\x13\x08àl=)úèZC­²\x9f½8\x13\x00&Ì¨Ì©À/À0À+À,À\x13À\x09À\x14À[0m" HTTPStatus.BAD_REQUEST -
+167.94.146.58 - - [10/Apr/2024 00:19:22] "[33mGET / HTTP/1.1[0m" 404 -
+167.94.146.58 - - [10/Apr/2024 00:19:26] "[33mGET / HTTP/1.1[0m" 404 -
+167.94.146.58 - - [10/Apr/2024 00:19:27] code 505, message Invalid HTTP version (2.0)
+167.94.146.58 - - [10/Apr/2024 00:19:27] "[35m[1mPRI * HTTP/2.0[0m" HTTPStatus.HTTP_VERSION_NOT_SUPPORTED -
+220.196.160.101 - - [10/Apr/2024 00:56:13] "[33mGET / HTTP/1.1[0m" 404 -
+185.161.248.141 - - [10/Apr/2024 00:59:16] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie:')
+185.161.248.141 - - [10/Apr/2024 00:59:16] "[35m[1m\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie: mstshash=Administr[0m" HTTPStatus.BAD_REQUEST -
+220.196.160.65 - - [10/Apr/2024 01:13:05] "[33mGET / HTTP/1.1[0m" 404 -
+220.196.160.83 - - [10/Apr/2024 01:13:34] "[33mGET / HTTP/1.1[0m" 404 -
+198.235.24.168 - - [10/Apr/2024 03:46:21] "[33mGET / HTTP/1.0[0m" 404 -
+180.101.245.253 - - [10/Apr/2024 06:14:46] "[33mGET / HTTP/1.1[0m" 404 -
+172.105.128.12 - - [10/Apr/2024 07:40:54] code 400, message Bad request version ('À\x14À')
+172.105.128.12 - - [10/Apr/2024 07:40:54] "[35m[1m\x16\x03\x01\x00\x85\x01\x00\x00\x81\x03\x03Evc|°ï\x86f\x83\x7f\x097\x83äo\x0c¤F»\x83ð-\x02\x06x«ä6Ó\x02\x82\x8e\x00\x00 À/À0À+À,Ì¨Ì©À\x13À\x09À\x14À[0m" HTTPStatus.BAD_REQUEST -
+205.210.31.249 - - [10/Apr/2024 08:47:45] "[33mGET / HTTP/1.1[0m" 404 -
+178.159.37.98 - - [10/Apr/2024 09:58:51] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie:')
+178.159.37.98 - - [10/Apr/2024 09:58:51] "[35m[1m\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie: mstshash=Administr[0m" HTTPStatus.BAD_REQUEST -
+78.128.114.22 - - [10/Apr/2024 11:15:47] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie:')
+78.128.114.22 - - [10/Apr/2024 11:15:47] "[35m[1m\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie: mstshash=Administr[0m" HTTPStatus.BAD_REQUEST -
+78.128.114.22 - - [10/Apr/2024 13:30:00] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie:')
+78.128.114.22 - - [10/Apr/2024 13:30:00] "[35m[1m\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie: mstshash=Administr[0m" HTTPStatus.BAD_REQUEST -
+91.240.118.187 - - [10/Apr/2024 14:04:18] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie:')
+91.240.118.187 - - [10/Apr/2024 14:04:18] "[35m[1m\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie: mstshash=Administr[0m" HTTPStatus.BAD_REQUEST -
+218.89.242.226 - - [10/Apr/2024 14:47:31] "[33mGET /upload?id=111 HTTP/1.1[0m" 404 -
+218.89.242.226 - - [10/Apr/2024 14:47:32] "[33mGET /upload?id=111 HTTP/1.1[0m" 404 -
+169.150.203.18 - - [10/Apr/2024 14:48:00] "[33mGET /upload?id=111 HTTP/1.1[0m" 404 -
+87.246.7.78 - - [10/Apr/2024 15:11:01] code 400, message Bad HTTP/0.9 request type ('\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie:')
+87.246.7.78 - - [10/Apr/2024 15:11:01] "[35m[1m\x03\x00\x00/*à\x00\x00\x00\x00\x00Cookie: mstshash=Administr[0m" HTTPStatus.BAD_REQUEST -
+161.189.42.18 - - [10/Apr/2024 15:17:08] code 400, message Bad request syntax ('[\x00\x00\x00H\x00\x00\x00\x01\x10\x01\x00\x01\x04j\x00\x00\x01\x00\x00\x00\x00')
+161.189.42.18 - - [10/Apr/2024 15:17:08] "[35m[1m[\x00\x00\x00H\x00\x00\x00\x01\x10\x01\x00\x01\x04j\x00\x00\x01\x00\x00\x00\x00[0m" HTTPStatus.BAD_REQUEST -
