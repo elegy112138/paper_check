@@ -1,9 +1,10 @@
-
 from annotate import add_comments
 from llm import *
 from tqdm import tqdm
 
-def check_paper(doc, key_sections):
+
+def check_paper(file_path, unique_filename):
+    document = Document(file_path)
     paper_comments = []
     paper_comments = check_front(doc, key_sections['Abstract'], paper_comments)
     paper_comments, doc = check_abstract(doc, key_sections['Abstract'], key_sections['TextStart'], paper_comments)
@@ -13,12 +14,12 @@ def check_paper(doc, key_sections):
                                       key_sections['Acknowledgements'], paper_comments)
 
     doc.save('modified_document.docx')
-    add_comments(paper_comments,'modified_document.docx')
+    add_comments(paper_comments, 'modified_document.docx')
 
 
 def check_front(doc, pos, paper_comments):
     keywords = ['本科毕业论文（设计）']  # 包含所有要检查的关键词
-    for i in tqdm(range(pos),desc="封面"):
+    for i in tqdm(range(pos), desc="封面"):
         para = doc.paragraphs[i]
         text = para.text.strip()
         # 检查段落文本是否以任一关键词开头
@@ -52,6 +53,8 @@ def check_abstract(doc, start_pos, end_pos, paper_comments):
                 doc.paragraphs[i] = check_abstract_format(para, 'Time New Roman', 12)
 
     return paper_comments, doc
+
+
 
 
 def check_text(doc, start_pos, end_pos, paper_comments):

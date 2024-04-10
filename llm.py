@@ -5,17 +5,16 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 
 
-def get_correction_suggestion(text, type):
-    api_key = "sk-AipKjBYHdd39JagE4052B9FeCa694389921635Ef23993aD7"
-    api_base = "https://api.rcouyi.com/v1"
+def get_correction_suggestion(text, type, api_url="https://api.rcouyi.com/v1/"):
+    api_key = "sk-h0R1vKdmDLY3MQwyC934Ce10C8Fb4c04A4641527D49415A3"
 
     # 设置环境变量
     os.environ["OPENAI_API_KEY"] = api_key
-    os.environ["OPENAI_API_BASE"] = api_base
 
-    chat = ChatOpenAI(model="gpt-3.5-turbo")
+    chat = ChatOpenAI(model="qwen-turbo", openai_api_base=api_url)
     base_instruction1 = f"""
     你是一个语法检查助手，你的任务是检查一段文字是否出现错别字和语法错误,你应该检查我提供给你的的文字中的语法错误和错别字，只返回你的修改建议。
+    文本也有可能没有错误,如果没有错误可以返回“没有错误”。
     {text}
 
     """

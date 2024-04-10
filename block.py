@@ -16,9 +16,8 @@ def find_key_sections(doc):
 
     for i, para in enumerate(doc.paragraphs):
         text = para.text.strip()
-
         # 查找“摘要”
-        if text == '摘要':
+        if text == '摘要' or text == '摘	要':
             positions['Abstract'] = i
             found_abstract = True
 

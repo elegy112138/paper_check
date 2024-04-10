@@ -8,7 +8,9 @@ def add_comment(doc, text, comment1):
     try:
         # 尝试查找要添加评论的文本
         text = doc.FindString(text, True, True)
-
+        if text is None:
+            print('未找到文本')
+            return doc
         # 如果找到了文本，可以在这里调用 add_comment 或其他函数
     except Exception as e:
         print('查找文本出错')
