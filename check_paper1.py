@@ -27,7 +27,7 @@ def process_file(file_data, task_id):
         process.tasks[task_id]['id']=file.get('id')
         try:
             # 假设这是调用check_paper函数的代码
-            if process.cancel:
+            if process.cancel[task_id]:
                 pass
             else:
                 check_paper(file.get('file_path'), file.get('unique_filename'), task_id)
@@ -37,7 +37,7 @@ def process_file(file_data, task_id):
             collection.update_one({"_id":ObjectId(file.get('id'))},{"$set":{"status":3}})
             continue
         # check_paper(file.get('file_path'), file.get('unique_filename'), task_id)
-        if process.cancel:
+        if process.cancel[task_id]:
             print("执行取消操作")
             collection.update_one({"_id": ObjectId(file.get('id'))}, {"$set": {"status": 4}})
             continue
@@ -48,7 +48,7 @@ def process_file(file_data, task_id):
 
 
 def check_paper(file_path, unique_filename, task_id):
-    if process.cancel:
+    if process.cancel[task_id]:
         print(1111)
         return
     doc = Document(file_path)
@@ -74,7 +74,7 @@ def check_paper(file_path, unique_filename, task_id):
 def check_front(doc, pos, paper_comments, task_id):
     keywords = ['本科毕业论文（设计）']  # 包含所有要检查的关键词
     for i in tqdm(range(pos), desc="封面"):
-        if process.cancel:
+        if process.cancel[task_id]:
             return []
         process.tasks[task_id]['current'] +=1
         para = doc.paragraphs[i]
@@ -89,7 +89,7 @@ def check_front(doc, pos, paper_comments, task_id):
 def check_abstract(doc, start_pos, end_pos, paper_comments, task_id):
     flag = None
     for i in tqdm(range(start_pos, end_pos), desc="摘要"):
-        if process.cancel:
+        if process.cancel[task_id]:
             return [],doc
         process.tasks[task_id]['current'] +=1
         para = doc.paragraphs[i]
@@ -115,8 +115,8 @@ def check_abstract(doc, start_pos, end_pos, paper_comments, task_id):
     return paper_comments, doc
 
 
-def process_paragraph(para, index):
-    if process.cancel:
+def process_paragraph(para, index,task_id):
+    if process.cancel[task_id]:
         return None, index, None  # 没有建议时返回None
     api_url = url_base_list[index % 4]
     text = para.text.strip()
@@ -162,7 +162,7 @@ def check_text(doc, start_pos, end_pos, paper_comments, task_id):
     process.tasks[task_id]['current'] += removed_paragraphs_count
     with ThreadPoolExecutor(max_workers=4) as executor:
         # 提交处理任务，同时传递段落和它的原始索引
-        futures = [executor.submit(process_paragraph, item['para'], item['index']) for item in paragraphs_to_process]
+        futures = [executor.submit(process_paragraph, item['para'], item['index'],task_id) for item in paragraphs_to_process]
 
         # 等待任务完成并收集结果
         for future in tqdm(as_completed(futures), total=len(paragraphs_to_process), desc="正文处理中"):
@@ -195,7 +195,7 @@ def check_references(doc, start_pos, end_pos, paper_comments,task_id):
 
     with ThreadPoolExecutor(max_workers=4) as executor:
         # 提交处理任务，同时传递段落和它的原始索引
-        futures = [executor.submit(process_references, item['para'], item['index']) for item in paragraphs_to_process]
+        futures = [executor.submit(process_references, item['para'], item['index'],task_id) for item in paragraphs_to_process]
 
         # 等待任务完成并收集结果
         for future in tqdm(as_completed(futures), total=len(paragraphs_to_process), desc="参考文献处理中"):
@@ -207,8 +207,8 @@ def check_references(doc, start_pos, end_pos, paper_comments,task_id):
     return paper_comments
 
 
-def process_references(para, index):
-    if process.cancel:
+def process_references(para, index,task_id):
+    if process.cancel[task_id]:
         return index, None
     api_url = url_base_list[index % 4]
     text = para.text

@@ -6,7 +6,7 @@ from docx.oxml.ns import qn
 
 
 def get_correction_suggestion(text, type, api_url="https://api.rcouyi.com/v1/"):
-    api_key = "sk-h0R1vKdmDLY3MQwyC934Ce10C8Fb4c04A4641527D49415A3"
+    api_key = "sk-IwmKcBKY42zk7gqsE3B502F9699d476b808e573fE4A74206"
 
     # 设置环境变量
     os.environ["OPENAI_API_KEY"] = api_key

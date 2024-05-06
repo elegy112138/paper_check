@@ -1,2 +1,2 @@
 tasks={}
-cancel=False
+cancel={}
