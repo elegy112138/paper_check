@@ -111,7 +111,9 @@ def upload_file():
     executor.submit(process_file,file_data,task_id)
 
     return jsonify(message="Files uploaded successfully"), 200
-
+@jwt.expired_token_loader
+def custom_expired_token_callback(jwt_header, jwt_payload):
+    return jsonify({"msg": "Token has expired"}), 400
 
 @app.route('/upload', methods=['GET'])
 @jwt_required()
