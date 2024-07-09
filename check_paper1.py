@@ -18,48 +18,49 @@ url_base_list = [
     "https://jp-5.rcouyi.com/v1/"
 ]
 
+
 def process_file(file_data, task_id):
     collection = get_collection("paper")
-    process.tasks[task_id] = {'total': 0, 'current': 0, 'status': '未开始',"id":''}
+    process.tasks[task_id] = {'total': 0, 'current': 0, 'status': '未开始', "id": ''}
     for file in file_data:
-        process.tasks[task_id]['current'] =0
+        process.tasks[task_id]['current'] = 0
         collection.update_one({"_id": ObjectId(file.get('id'))}, {"$set": {"status": 0}})
-        process.tasks[task_id]['id']=file.get('id')
+        process.tasks[task_id]['id'] = file.get('id')
         try:
             # 假设这是调用check_paper函数的代码
-            if process.cancel:
+            if process.cancel[task_id]:
                 pass
             else:
                 check_paper(file.get('file_path'), file.get('unique_filename'), task_id)
         except Exception as e:
             # 当check_paper函数抛出任何异常时，这里会捕获到
             print("捕获到异常：", str(e))
-            collection.update_one({"_id":ObjectId(file.get('id'))},{"$set":{"status":3}})
+            collection.update_one({"_id": ObjectId(file.get('id'))}, {"$set": {"status": 3}})
             continue
         # check_paper(file.get('file_path'), file.get('unique_filename'), task_id)
-        if process.cancel:
+        if process.cancel[task_id]:
             print("执行取消操作")
             collection.update_one({"_id": ObjectId(file.get('id'))}, {"$set": {"status": 4}})
             continue
-        collection.update_one({"_id":ObjectId(file.get('id'))},{"$set":{"status":2}})
+        collection.update_one({"_id": ObjectId(file.get('id'))}, {"$set": {"status": 2}})
     process.tasks.pop(task_id)
 
 
-
-
 def check_paper(file_path, unique_filename, task_id):
-    if process.cancel:
+    if process.cancel[task_id]:
         print(1111)
         return
     doc = Document(file_path)
     key_sections = block.find_key_sections(doc)
     process.tasks[task_id]['total'] = key_sections.get('Acknowledgements')
-    process.tasks[task_id]['status']='进行中'
+    process.tasks[task_id]['status'] = '进行中'
     processed_filename = f"processed_{unique_filename}"
     paper_comments = []
     paper_comments = check_front(doc, key_sections['Abstract'], paper_comments, task_id)
-    paper_comments, doc = check_abstract(doc, key_sections['Abstract'], key_sections['TextStart'], paper_comments, task_id)
-    paper_comments, doc = check_text(doc, key_sections['TextStart'], key_sections['References'], paper_comments, task_id)
+    paper_comments, doc = check_abstract(doc, key_sections['Abstract'], key_sections['TextStart'], paper_comments,
+                                         task_id)
+    paper_comments, doc = check_text(doc, key_sections['TextStart'], key_sections['References'], paper_comments,
+                                     task_id)
     paper_comments = check_references(doc, key_sections['References'],
                                       key_sections['Appendix'] if key_sections['Appendix'] is not None else
                                       key_sections['Acknowledgements'], paper_comments, task_id)
@@ -71,12 +72,15 @@ def check_paper(file_path, unique_filename, task_id):
     return processed_filename
 
 
+""
+
+
 def check_front(doc, pos, paper_comments, task_id):
     keywords = ['本科毕业论文（设计）']  # 包含所有要检查的关键词
     for i in tqdm(range(pos), desc="封面"):
-        if process.cancel:
+        if process.cancel[task_id]:
             return []
-        process.tasks[task_id]['current'] +=1
+        process.tasks[task_id]['current'] += 1
         para = doc.paragraphs[i]
         text = para.text.strip()
         # 检查段落文本是否以任一关键词开头
@@ -89,9 +93,9 @@ def check_front(doc, pos, paper_comments, task_id):
 def check_abstract(doc, start_pos, end_pos, paper_comments, task_id):
     flag = None
     for i in tqdm(range(start_pos, end_pos), desc="摘要"):
-        if process.cancel:
-            return [],doc
-        process.tasks[task_id]['current'] +=1
+        if process.cancel[task_id]:
+            return [], doc
+        process.tasks[task_id]['current'] += 1
         para = doc.paragraphs[i]
         text = para.text.strip()
         if len(text) > 30:
@@ -115,8 +119,8 @@ def check_abstract(doc, start_pos, end_pos, paper_comments, task_id):
     return paper_comments, doc
 
 
-def process_paragraph(para, index):
-    if process.cancel:
+def process_paragraph(para, index, task_id):
+    if process.cancel[task_id]:
         return None, index, None  # 没有建议时返回None
     api_url = url_base_list[index % 4]
     text = para.text.strip()
@@ -162,7 +166,8 @@ def check_text(doc, start_pos, end_pos, paper_comments, task_id):
     process.tasks[task_id]['current'] += removed_paragraphs_count
     with ThreadPoolExecutor(max_workers=4) as executor:
         # 提交处理任务，同时传递段落和它的原始索引
-        futures = [executor.submit(process_paragraph, item['para'], item['index']) for item in paragraphs_to_process]
+        futures = [executor.submit(process_paragraph, item['para'], item['index'], task_id) for item in
+                   paragraphs_to_process]
 
         # 等待任务完成并收集结果
         for future in tqdm(as_completed(futures), total=len(paragraphs_to_process), desc="正文处理中"):
@@ -178,7 +183,7 @@ def check_text(doc, start_pos, end_pos, paper_comments, task_id):
     return paper_comments, doc
 
 
-def check_references(doc, start_pos, end_pos, paper_comments,task_id):
+def check_references(doc, start_pos, end_pos, paper_comments, task_id):
     # 原始范围内的段落总数
     total_paragraphs = end_pos - start_pos
 
@@ -195,7 +200,8 @@ def check_references(doc, start_pos, end_pos, paper_comments,task_id):
 
     with ThreadPoolExecutor(max_workers=4) as executor:
         # 提交处理任务，同时传递段落和它的原始索引
-        futures = [executor.submit(process_references, item['para'], item['index']) for item in paragraphs_to_process]
+        futures = [executor.submit(process_references, item['para'], item['index'], task_id) for item in
+                   paragraphs_to_process]
 
         # 等待任务完成并收集结果
         for future in tqdm(as_completed(futures), total=len(paragraphs_to_process), desc="参考文献处理中"):
@@ -207,8 +213,8 @@ def check_references(doc, start_pos, end_pos, paper_comments,task_id):
     return paper_comments
 
 
-def process_references(para, index):
-    if process.cancel:
+def process_references(para, index, task_id):
+    if process.cancel[task_id]:
         return index, None
     api_url = url_base_list[index % 4]
     text = para.text
